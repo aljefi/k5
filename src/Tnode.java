@@ -78,7 +78,7 @@ public class Tnode {
         for (String elem : polArr) {
             Tnode tnode = new Tnode(elem);
             tnodeArrayList.add(tnode);
-            if (elem.matches(".*\\d.*")){
+            if (elem.matches(".*\\d.*")) {
                 numbers++;
             } else {
                 operands++;
@@ -86,7 +86,7 @@ public class Tnode {
         }
         if (numbers - 1 > operands) {
             throw new RuntimeException("too many numbers in: " + pol);
-        } else if (numbers <= operands){
+        } else if (numbers <= operands) {
             throw new RuntimeException("too few numbers in: " + pol);
         }
         if (polArr.size() == 1) {
