@@ -11,6 +11,52 @@ import org.junit.Test;
 public class TnodeTest {
 
     @Test(timeout = 1000)
+    public void testBuildFromRPN_S() {
+        String s = "2 5 SWAP -";
+        Tnode t = Tnode.buildFromRPN(s);
+        String r = t.toString();
+        assertEquals("Tree: " + s, "-(5,2)", r);
+    }
+    @Test(timeout = 1000)
+    public void testBuildFromRPN_D() {
+        String s = "3 DUP *";
+        Tnode t = Tnode.buildFromRPN(s);
+        String r = t.toString();
+        assertEquals("Tree: " + s, "*(3,3)", r);
+    }
+    @Test(timeout = 1000)
+    public void testBuildFromRPN_R() {
+        String s = "2 5 9 ROT - +";
+        Tnode t = Tnode.buildFromRPN(s);
+        String r = t.toString();
+        assertEquals("Tree: " + s, "+(5,-(9,2))", r);
+    }
+    @Test(timeout = 100000)
+    public void testBuildFromRPN_RS() {
+        String s = "2 5 9 ROT + SWAP -";
+        Tnode t = Tnode.buildFromRPN(s);
+        String r = t.toString();
+        assertEquals("Tree: " + s, "-(+(9,2),5)", r);
+    }
+    @Test(timeout = 1000)
+    public void testBuildFromRPN_DRD() {
+        String s = "2 5 DUP ROT - + DUP *";
+        Tnode t = Tnode.buildFromRPN(s);
+        String r = t.toString();
+        assertEquals("Tree: " + s, "*(+(5,-(5,2)),+(5,-(5,2)))", r);
+    }
+    @Test(timeout = 1000)
+    public void testBuildFromRPN_RSD() {
+        String s = "-3 -5 -7 ROT - SWAP DUP * +";
+        Tnode t = Tnode.buildFromRPN(s);
+        String r = t.toString();
+        assertEquals("Tree: " + s, "+(-(-7,-3),*(-5,-5))", r);
+    }
+
+
+
+
+    @Test(timeout = 1000)
     public void testBuildFromRPN() {
         String s = "1 2 +";
         Tnode t = Tnode.buildFromRPN(s);
